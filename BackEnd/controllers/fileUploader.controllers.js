@@ -5,7 +5,6 @@ import xlsx from "xlsx";
 
 export const fileUploading = async (req, res) => {
   let { agentsCount } = req.params;
-  console.log("Agents count:", agentsCount);
   try {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
@@ -18,7 +17,6 @@ export const fileUploading = async (req, res) => {
     const workbook = xlsx.readFile(filePath);
     const sheetName = workbook.SheetNames[0];
     const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
-    console.log(data);
 
     // Validate CSV structure
     if (
@@ -33,7 +31,6 @@ export const fileUploading = async (req, res) => {
           "Invalid file format. Must contain FirstName, Phone, and Notes.",
       });
     }
-    console.log(agentsCount);
     // Fetch only the required number of agents
     const agents = await Agent.find().limit(agentsCount);
     if (agents.length < agentsCount) {

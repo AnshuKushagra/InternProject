@@ -7,7 +7,6 @@ export const useFileStore = create((set) => ({
   assignedTasks: [],
   loading: false,
   uploadFile: async (file, agentsCount) => {
-    console.log(agentsCount, "gfghfdd");
     try {
       set({ loading: true });
       const formData = new FormData();
@@ -31,7 +30,6 @@ export const useFileStore = create((set) => ({
     try {
       set({ loading: true });
       const res = await axiosInstance.get(`/files/assignedtasks`);
-      console.log(res.data);
       set({ assignedTasks: res.data, loading: false });
     } catch (error) {
       console.log("Failed to fetch tasks", error);

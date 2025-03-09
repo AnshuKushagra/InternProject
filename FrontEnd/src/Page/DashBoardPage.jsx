@@ -1,8 +1,18 @@
 import { useState, useEffect } from "react";
-import { Loader2, Eye, EyeOff, Mail, Lock, User, Trash2 } from "lucide-react";
+import {
+  Loader2,
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  User,
+  Trash2,
+  Phone,
+} from "lucide-react";
 import { useAgentStore } from "../Store/useAgentStore.js";
 import { useFileStore } from "../Store/useFileStore.js";
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 export default function Dashboard() {
   const [agentData, setAgentData] = useState({
     name: "",
@@ -37,7 +47,6 @@ export default function Dashboard() {
       alert("Please fill all the fields");
       return;
     }
-    console.log(agentsCount, "ggdggd");
     await uploadFile(file, agentsCount);
     fetchAssignedtasks(); // Refresh assigned tasks after upload
   };
@@ -69,7 +78,6 @@ export default function Dashboard() {
                 required
               />
             </div>
-
             <div className="relative">
               <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
               <input
@@ -84,12 +92,14 @@ export default function Dashboard() {
             </div>
 
             <div className="relative">
-              <User className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
+              <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
               <input
                 type="tel"
                 name="mobile"
-                placeholder="Mobile Number"
+                placeholder="+91 9876543210"
+                // Placeholder with country code
                 value={agentData.mobile}
+                // value={"+91" + agentData.mobile} // Prepend country code
                 onChange={handleChange}
                 className="w-full p-2 pl-10 border rounded-md"
                 required
@@ -119,7 +129,6 @@ export default function Dashboard() {
                 )}
               </button>
             </div>
-
             <button
               type="submit"
               className="w-full bg-blue-500 text-white p-3 rounded-lg font-medium hover:bg-blue-600 transition duration-300"
