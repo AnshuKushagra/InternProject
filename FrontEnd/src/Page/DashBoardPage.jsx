@@ -48,6 +48,7 @@ export default function Dashboard() {
       return;
     }
     await uploadFile(file, agentsCount);
+    setFile(null);
     fetchAssignedtasks(); // Refresh assigned tasks after upload
   };
 
