@@ -43,13 +43,13 @@ cd InternProject
 
 #### Backend Setup
 ```sh
-cd backend
+cd Backend
 npm install
 ```
 
 #### Frontend Setup
 ```sh
-cd ../frontend
+cd ../Frontend
 npm install
 ```
 
