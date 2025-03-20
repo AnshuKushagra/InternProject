@@ -17,6 +17,7 @@ export const useFileStore = create((set) => ({
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true,
         }
       );
       set({ uploadedFile: response.data, loading: false });
@@ -29,7 +30,9 @@ export const useFileStore = create((set) => ({
   fetchAssignedtasks: async () => {
     try {
       set({ loading: true });
-      const res = await axiosInstance.get(`/files/assignedtasks`);
+      const res = await axiosInstance.get(`/files/assignedtasks/`, {
+        withCredentials: true,
+      });
       set({ assignedTasks: res.data, loading: false });
     } catch (error) {
       console.log("Failed to fetch tasks", error);

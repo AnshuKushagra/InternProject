@@ -26,4 +26,17 @@ export const useAgentStore = create((set) => ({
       toast.error(error.response.data.message);
     }
   },
+  viewAgent: async () => {
+    try {
+      const res = await axiosInstance.get("/agents/view");
+      if (!res) {
+        toast.error("No Agents Found!");
+        return;
+      }
+      set({ agents: res.data });
+    } catch (error) {
+      console.log(error);
+      toast.error("Unexpected response from server.");
+    }
+  },
 }));

@@ -5,6 +5,7 @@ import xlsx from "xlsx";
 
 export const fileUploading = async (req, res) => {
   let { agentsCount } = req.params;
+  const adminId = req.user.userId;
   try {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
@@ -54,6 +55,7 @@ export const fileUploading = async (req, res) => {
         notes: data[i].Notes,
         agentId: agents[agentIndex]._id, // Assign task only to selected agents
         agentName: agents[agentIndex].name,
+        adminId,
       });
 
       count++;
@@ -79,9 +81,16 @@ export const fileUploading = async (req, res) => {
 
 // Fetch all assigned tasks (for frontend)
 export const getAssignedTasks = async (req, res) => {
-  console.log("fdsfsbgfnd");
   try {
-    const tasks = await File.find();
+    const adminId = req.user.userId;
+    console.log(adminId);
+    if (!adminId) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: No admin ID found" });
+    }
+
+    const tasks = await File.find({ adminId });
     if (tasks.length === 0) {
       return res.status(400).json({ message: "No tasks to show" });
     }

@@ -12,7 +12,7 @@ import {
 
 // ADD AGENT
 router.post("/add", protect, admin, agentAdd);
-router.post("/view", protect, admin, agentView);
+router.get("/view", protect, admin, agentView);
 router.put("/update/:id", protect, admin, update);
 router.put("/delete/:id", protect, admin, deleteAgent);
 export default router;
